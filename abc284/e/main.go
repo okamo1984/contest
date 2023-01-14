@@ -1,22 +1,10 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
-)
 
-func scanLine(line string) (n, m int) {
-	ls := bufio.NewScanner(strings.NewReader(line))
-	ls.Split(bufio.ScanWords)
-	ls.Scan()
-	n, _ = strconv.Atoi(ls.Text())
-	ls.Scan()
-	m, _ = strconv.Atoi(ls.Text())
-	return
-}
+	"github.com/okamo1984/contest/atcoder"
+)
 
 func dfs(visited []bool, gather [][]int, visit int) (result int) {
 	result++
@@ -32,13 +20,11 @@ func dfs(visited []bool, gather [][]int, visit int) (result int) {
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	n, m := scanLine(scanner.Text())
+	s := atcoder.NewAtCoderStdInScanner()
+	n, m := atcoder.ScanNumberTupleLine(s.ScanText())
 	gather := make([][]int, n)
 	for i := 0; i < m; i++ {
-		scanner.Scan()
-		u, v := scanLine(scanner.Text())
+		u, v := atcoder.ScanNumberTupleLine(s.ScanText())
 		u--
 		v--
 		gather[u] = append(gather[u], v)

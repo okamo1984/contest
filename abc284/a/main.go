@@ -1,26 +1,19 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
+	"github.com/okamo1984/contest/atcoder"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	num, _ := strconv.Atoi(scanner.Text())
-	scanned := make([]string, num)
+	s := atcoder.NewAtCoderStdInScanner()
+	num := s.ScanNumber()
 	var text string
 	for i := 0; i < num; i++ {
-		scanner.Scan()
-		text = scanner.Text()
+		text = s.ScanText()
 		if text == "" {
 			break
 		}
-		scanned[num-(i+1)] = text
+		fmt.Println(text)
 	}
-	fmt.Println(strings.Join(scanned, "\n"))
 }

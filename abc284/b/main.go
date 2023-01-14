@@ -1,44 +1,31 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
+	"github.com/okamo1984/contest/atcoder"
 )
 
 type task2Scanner struct {
-	*bufio.Scanner
-	results     []string
-	currentCase int
+	*atcoder.AtCoderStdInScanner
 }
 
-func (s *task2Scanner) scanCase() {
-	s.Scan()
-	num, _ := strconv.Atoi(s.Text())
-	s.Scan()
-	lineScanner := bufio.NewScanner(strings.NewReader(s.Text()))
-	lineScanner.Split(bufio.ScanWords)
-	var odd int
+func (s *task2Scanner) scanCase() (odd int) {
+	num := s.ScanNumber()
+	ls := atcoder.NewAtCoderLineScanner(s.ScanText())
 	for i := 0; i < num; i++ {
-		lineScanner.Scan()
-		digit, _ := strconv.Atoi(lineScanner.Text())
+		digit := ls.ScanNumber()
 		if digit%2 == 1 {
 			odd++
 		}
 	}
-	s.results[s.currentCase] = strconv.Itoa(odd)
-	s.currentCase++
+	return
 }
 
 func main() {
-	bufioScanner := bufio.NewScanner(os.Stdin)
-	bufioScanner.Scan()
-	caseNum, _ := strconv.Atoi(bufioScanner.Text())
-	scanner := task2Scanner{bufioScanner, make([]string, caseNum), 0}
+	s := atcoder.NewAtCoderStdInScanner()
+	caseNum := s.ScanNumber()
+	t2s := task2Scanner{s}
 	for i := 0; i < caseNum; i++ {
-		scanner.scanCase()
+		fmt.Println(t2s.scanCase())
 	}
-	fmt.Println(strings.Join(scanner.results, "\n"))
 }

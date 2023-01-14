@@ -1,11 +1,9 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
+
+	"github.com/okamo1984/contest/atcoder"
 )
 
 func isPrime(n int) bool {
@@ -45,15 +43,11 @@ outer:
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	num, _ := strconv.Atoi(scanner.Text())
-	answers := make([]string, num)
+	s := atcoder.NewAtCoderStdInScanner()
+	num := s.ScanNumber()
 	for i := 0; i < num; i++ {
-		scanner.Scan()
-		n, _ := strconv.Atoi(scanner.Text())
+		n := s.ScanNumber()
 		p, q := findAnswer(n)
-		answers[i] = fmt.Sprintf("%d %d", p, q)
+		fmt.Println(fmt.Sprintf("%d %d", p, q))
 	}
-	fmt.Println(strings.Join(answers, "\n"))
 }
